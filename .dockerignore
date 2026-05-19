@@ -1,9 +1,11 @@
 /.dockerignore
 /.editorconfig
 /.git/
+/.github/
 /.gitignore
 /.golangci.yml
 /Dockerfile
+/LICENSE
 /Makefile
 *.md
 /http/
