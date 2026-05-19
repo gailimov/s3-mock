@@ -1,4 +1,4 @@
-name: Go
+name: Checks
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         with:
           dockerfile: Dockerfile
 
-      - name: Setup Go
+      - name: Set up Go
         uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
