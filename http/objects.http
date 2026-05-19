@@ -1,0 +1,12 @@
+@host = http://localhost:8080
+
+### Put object
+PUT {{host}}/test/test.txt
+
+Hello, world!
+
+### Head object
+HEAD {{host}}/test/test.txt
+
+### Get object
+GET {{host}}/test/test.txt

@@ -1,0 +1,9 @@
+/.dockerignore
+/.editorconfig
+/.git/
+/.gitignore
+/.golangci.yml
+/Dockerfile
+/Makefile
+*.md
+/http/

@@ -1,0 +1,104 @@
+version: "2"
+
+linters:
+  default: none
+
+  enable:
+    - bidichk
+    - decorder
+    - dogsled
+    - err113
+    - errcheck
+    - errname
+    - errorlint
+    - funcorder
+    - gochecknoinits
+    - goconst
+    - godoclint
+    - gosec
+    - govet
+    - iface
+    - inamedparam
+    - ineffassign
+    - lll
+    - loggercheck
+    - makezero
+    - mirror
+    - misspell
+    - modernize
+    - nilnesserr
+    - nilnil
+    - nlreturn
+    - nolintlint
+    - nosprintfhostport
+    - predeclared
+    - reassign
+    - recvcheck
+    - sloglint
+    - staticcheck
+    - thelper
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - usetesting
+    - wastedassign
+    - whitespace
+    - wrapcheck
+    - wsl_v5
+
+  settings:
+    decorder:
+      dec-order:
+        - const
+        - var
+        - type
+        - func
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    funcorder:
+      function: true
+    govet:
+      enable:
+        - shadow
+    iface:
+      enable:
+        - identical
+        - unused
+        - opaque
+        - unexported
+    loggercheck:
+      kitlog: false
+      klog: false
+      logr: false
+      slog: true
+      zap: false
+      require-string-key: true
+      no-printf-like: true
+    sloglint:
+      no-global: "default"
+      static-msg: true
+      msg-style: "lowercased"
+      kv-only: true
+      args-on-sep-lines: true
+      forbidden-keys:
+        - time
+        - level
+        - msg
+        - source
+      key-naming-case: "snake"
+    usestdlibvars:
+      time-layout: true
+    whitespace:
+      multi-if: true
+      multi-func: true
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+  settings:
+    gofmt:
+      simplify: true
