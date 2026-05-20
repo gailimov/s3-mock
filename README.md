@@ -32,31 +32,33 @@ stores file at:
 
 ## Usage
 
-Server available at `http://localhost:8080`.
+In all examples below, server will be available at `http://localhost:8080`.
 
-### Run locally
+Choose one of the following options.
+
+### Run locally without Docker
 
 ```bash
 go run .
 ```
 
-### Run with Docker
-
-```bash
-make build
-make run
-```
-
-### Persist files locally
-
-After building the image with `make build`:
+### Run prebuilt Docker image
 
 ```bash
 docker run \
   --rm \
   -p 8080:8080 \
   -v $PWD/data:/app/storage \
-  s3-mock
+  ghcr.io/gailimov/s3-mock:latest
+```
+
+This mounts local `./data` directory to `/app/storage` inside container, where uploaded files are stored.
+
+### Manually build and run Docker image
+
+```bash
+make build
+make run
 ```
 
 ## Development
