@@ -24,6 +24,17 @@ func newTestEnv(t *testing.T) testEnv {
 	}
 }
 
+func TestHealth(t *testing.T) {
+	r := httptest.NewRequest(http.MethodGet, "/health", nil)
+	w := httptest.NewRecorder()
+
+	health(w, r)
+
+	if got := w.Code; got != http.StatusOK {
+		t.Fatalf("expected %d, got %d", http.StatusOK, got)
+	}
+}
+
 func TestHandleGet(t *testing.T) {
 	const (
 		filename    = "test.txt"
@@ -183,4 +194,21 @@ func TestHandlePut_Overwrite(t *testing.T) {
 	}
 
 	assertContent(content)
+}
+
+func TestHandlePut_HealthNotAllowed(t *testing.T) {
+	env := newTestEnv(t)
+
+	r := httptest.NewRequest(http.MethodPut, "/health", nil)
+	w := httptest.NewRecorder()
+
+	handlePut(env.logger, env.storageDir).ServeHTTP(w, r)
+
+	if got := w.Code; got != http.StatusMethodNotAllowed {
+		t.Fatalf("expected %d, got %d", http.StatusMethodNotAllowed, got)
+	}
+
+	if got := w.Header().Get("Allow"); got != "GET" {
+		t.Fatalf("expected %q, got %q", "GET", got)
+	}
 }

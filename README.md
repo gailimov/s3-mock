@@ -12,6 +12,14 @@ Objects are stored directly on the filesystem and exposed through a small HTTP A
 
 ## Supported endpoints
 
+Healthcheck:
+
+```http
+GET /health
+```
+
+Objects API:
+
 ```http
 GET  /path/to/object
 HEAD /path/to/object

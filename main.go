@@ -40,6 +40,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
+	mux.HandleFunc("GET /health", health)
 	mux.HandleFunc("GET /", handleGet(logger, storageDir))
 	mux.HandleFunc("PUT /", handlePut(logger, storageDir))
 
@@ -87,6 +88,10 @@ func main() {
 	logger.Info("server stopped")
 }
 
+func health(w http.ResponseWriter, _ *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+
 func handleGet(logger *slog.Logger, storageDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		path := buildPath(storageDir, r.URL.Path)
@@ -122,6 +127,13 @@ func handleGet(logger *slog.Logger, storageDir string) http.HandlerFunc {
 
 func handlePut(logger *slog.Logger, storageDir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/health" {
+			w.Header().Set("Allow", "GET")
+			w.WriteHeader(http.StatusMethodNotAllowed)
+
+			return
+		}
+
 		path := buildPath(storageDir, r.URL.Path)
 
 		if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
